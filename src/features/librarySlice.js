@@ -68,7 +68,7 @@ const librarySlice = createSlice({
                 state.error = action.error.message
             })
             .addCase(addBook.fulfilled, (state, action) => {
-                state.bookList.push(action.payload)
+                state.bookList = action.payload;
             })
     }
 })
