@@ -10,6 +10,7 @@ const bookController = require('./controllers/bookControllers');
 // SQL controllers
 const userControllerSQL = require('./controllers/userControllerSQL');
 const bookControllerSQL = require('./controllers/bookControllerSQL');
+const reviewControllerSQL = require('./controllers/reviewControllerSQL');
 
 
 
@@ -20,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../src')));
 
-// SQL TESTS:
+// SQL ROUTES:
 // BOOKS:
 app.post('/books', bookControllerSQL.addBook, (req, res) => {
   return res.status(200).json(res.locals.newBook);
@@ -35,19 +36,25 @@ app.delete('/books', bookControllerSQL.deleteBook, (req, res) => {
   return res.status(200).json(res.locals.deletedBook);
 })
 // USERS:
-app.post('/signup', userControllerSQL.createUser, (req, res) =>
+app.post('/signup', userControllerSQL.createUser, (req, res) => {
   res.status(200).json(res.locals.newUser)
-);
-app.post('/login', userControllerSQL.verifyUser, (req, res) =>
+});
+app.post('/login', userControllerSQL.userAuth, (req, res) => {
   res.status(200).json(res.locals.userID)
-);
+});
+// REVIEWS
+app.post('/review', reviewControllerSQL.addReview, (req, res) => {
+  res.status(200).json(res.locals.newReview)
+})
+app.delete('/review', reviewControllerSQL.deleteReview, (req, res) => {
+  res.status(200).json(res.locals.deletedReview)
+})
+app.get('/review', reviewControllerSQL.getReview, (req, res) => {
+  res.status(200).json(res.locals.foundReview)
+})
 
 
-// TO DO FOR MOIZ:
-// MAKE ROUTE FOR GET ALL USERS
-// MAKE ROUTE FOR ADD REVIEW
-// MAKE ROUTE FOR DELETE REVIEW
-// MAKE ROUTE FOR GET REVIEW BY BOOK/USER
+// OLD MONGODB STUFF
 
 // login
 app.post(
