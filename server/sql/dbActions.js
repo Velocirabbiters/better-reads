@@ -111,7 +111,7 @@ dbActions.deleteReview = async review => {
   const { review_id } = review;
   const values = [review_id];
   // if user_id, book_id don't match any user/book primary keys, will throw error?
-  const query = `DELETE FROM reviews WHERE book_id = $1;`;
+  const query = `DELETE FROM reviews WHERE review_id = $1;`;
   const result = await db.query(query, values);
   return result.rows[0];
 };
