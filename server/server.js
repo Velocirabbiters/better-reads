@@ -16,7 +16,8 @@ const PORT = 3005;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.resolve(__dirname, '../src')));
+console.log(path.resolve(__dirname, '../dist'));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
 // SQL ROUTES:
 // BOOKS:
@@ -53,10 +54,9 @@ app.get('/review', reviewControllerSQL.getReview, (req, res) => {
   res.status(200).json(res.locals.foundReview);
 });
 app.get('/library', reviewControllerSQL.getAllUserReviews, (req, res) => {
-    // this should be a get request, but prev group did post
-    res.status(200).json(res.locals.userReviews);
-  },
-);
+  // this should be a get request, but prev group did post
+  res.status(200).json(res.locals.userReviews);
+});
 
 // OLD MONGODB STUFF
 

@@ -7,7 +7,8 @@
     "startsql": "node ./server/models/sqlModels",
     "test": "jest --verbose --runInBand --detectOpenHandles --forceExit",
     "start": "nodemon server/server.js",
-    "dev": "webpack-dev-server --mode development --open --hot"
+    "dev": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",
