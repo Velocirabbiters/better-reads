@@ -64,6 +64,7 @@ module.exports = {
       '/dashboard': 'http://localhost:3005', // path and port here
       '/library': 'http://localhost:3005', // path and port here
       '/books': 'http://localhost:3005',
+      '/review': 'http://localhost:3005',
     },
   },
 };

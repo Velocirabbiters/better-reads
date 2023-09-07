@@ -20,13 +20,15 @@ function LibraryDashboard() {
     dispatch(getBooks(body));
   }, []);
 
-  const rows = bookData.map((book, index) => ({
+  console.log("here is the book data: ", bookData);
+
+  const rows = bookData.map((review, index) => ({ // this is an array of review objects
     id: index + 1,
-    title: book.title,
-    author: book.author,
-    genre: book.genre,
-    summary: book.summary,
-    review: book.review,
+    title: review.title,
+    author: review.author,
+    genre: review.genre,
+    summary: review.review,
+    review: review.rating,
   }));
 
   const openUpdate = () => {
