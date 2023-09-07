@@ -40,8 +40,8 @@ app.post('/login', userControllerSQL.userAuth, (req, res) => {
   res.status(200).json({ user_id: res.locals.userID });
 });
 // REVIEWS
-app.post('/review', reviewControllerSQL.addReview, (req, res) => {
-  res.status(200).json(res.locals.newReview);
+app.post('/review', reviewControllerSQL.addReview, reviewControllerSQL.fleshOutReview, (req, res) => {
+  res.status(200).json(res.locals.fleshedOutReview);
 });
 // app.post('/review', reviewControllerSQL.addReview, reviewControllerSQL.getAllUserReviews, (req, res) => {
 //   res.status(200).json(res.locals.userReviews);
