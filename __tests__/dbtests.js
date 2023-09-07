@@ -87,11 +87,6 @@ describe('db unit tests', () => {
         author: 'Patrick Rothfuss',
         genre: 'Fantasy',
       });
-      await dbActions.addBook({
-        title: 'Words of Radiance',
-        author: 'Brandon Sanderson',
-        genre: 'Fantasy',
-      });
 
       const result = await dbActions.getBook(bookquery);
 
@@ -113,12 +108,7 @@ describe('db unit tests', () => {
         author: 'Brandon Sanderson',
         genre: 'Fantasy',
       });
-      expect(result[3]).toEqual({
-        book_id: 6,
-        title: 'Words of Radiance',
-        author: 'Brandon Sanderson',
-        genre: 'Fantasy',
-      });
+      expect(result[3]).toEqual(undefined);
     });
 
     it('test create new user and verify user', async () => {
@@ -163,6 +153,7 @@ describe('db unit tests', () => {
       });
       expect(result5).toEqual(undefined);
     });
+
     it('test submit review', async () => {
       const result = await dbActions.addBook({
         title: 'Words of Radiance',
@@ -179,14 +170,33 @@ describe('db unit tests', () => {
       const result2 = await dbActions.addReview(newReview);
       expect(result2).toEqual({ ...newReview, review_id: result2.review_id });
     });
+    it('test get review', async () => {
+      const result = await dbActions.getBook({ title: 'Words of Radiance' });
+      const newReview = {
+        user_id: 3,
+        book_id: result[0].book_id,
+        rating: 5,
+        review: `Fantastic Book. Held my attention all the way through.`,
+      };
+      const result2 = await dbActions.addReview(newReview);
+      expect(result2).toEqual({ ...newReview, review_id: result2.review_id });
+      const result3 = await dbActions.getReview(newReview);
+      expect([result2]).toEqual(result3);
+    });
     it('test delete review', async () => {
       const result = await dbActions.getBook({ title: 'Words of Radiance' });
       const newReview = {
         user_id: 2,
-        book_id: result.book_id,
-        rating: 5,
+        book_id: result[0].book_id,
+        rating: 1,
         review: `Garbage Book`,
       };
+      const result2 = await dbActions.addReview(newReview);
+      const result3 = await dbActions.getReview(newReview);
+      expect([result2]).toEqual(result3);
+      await dbActions.deleteReview(result2);
+      const result5 = await dbActions.getReview(newReview);
+      expect(result5).toEqual([]);
     });
   });
 
