@@ -11,6 +11,7 @@ const initialState = {
 export const getBooks = createAsyncThunk('library/getBooks', async user_id => {
   try {
     console.log({ params: user_id })
+    console.log('running get books again');
     const response = await axios.get('/library', { params: user_id });
     console.log("the response is", response.data);
     return response.data;
@@ -20,9 +21,11 @@ export const getBooks = createAsyncThunk('library/getBooks', async user_id => {
 });
 
 export const addBook = createAsyncThunk('library/addBook', async data => {
+  console.log(data);
   try {
-    const response = await axios.post('/dashboard', data);
-    console.log(data);
+    const response = await axios.post('/review', data);
+    console.log("this is the data entering addBook: ", data);
+    console.log("this is the response we got from post to /review: ", response);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -72,7 +75,13 @@ const librarySlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
+      .addCase(addBook.pending, (state, action) => {
+        console.log('booklist while pending: ', state.bookList);
+      })
       .addCase(addBook.fulfilled, (state, action) => {
+        console.log('added book erm i mean review');
+        console.log('bookList currently: ', state.bookList);
+        console.log('payload: ', action.payload);
         state.bookList = action.payload;
       });
   },

@@ -33,6 +33,7 @@ function AddBookForm() {
   const [booksAndBookID, setBooksAndBookID] = useState([]);
   const [titleSelectorVal, setTitleSelectorVal] = useState('');
   const username = useSelector(state => state.user.username);
+  const user_id = useSelector(state => state.user.user_id);
 
   const dispatch = useDispatch();
 
@@ -61,16 +62,17 @@ function AddBookForm() {
     setTitleSelectorVal(e.target.value);
   };
   const handleSubmit = e => {
+    console.log("HELLO");
     e.preventDefault();
+    const reviewInfo = {
+      user_id: user_id,
+      book_id: titleSelectorVal,
+      review: summary,
+      rating: Number(review)
+    };
+    console.log('reviewInfo: ', reviewInfo);
     dispatch(
-      addBook({
-        username,
-        title,
-        author,
-        genre,
-        summary,
-        review,
-      }),
+      addBook(reviewInfo),
     );
   };
   const options = [];
@@ -101,7 +103,7 @@ function AddBookForm() {
             onChange={titleSelectorChangeHandle}>
             {options}
           </Select>
-          <TextField
+          {/* <TextField
             required
             name='title'
             variant='outlined'
@@ -128,19 +130,19 @@ function AddBookForm() {
             value={genre}
             onChange={e => setGenre(e.target.value)}
             sx={{ paddingBottom: 2 }}
-          />
-          <FormLabel component='legend'>Summary</FormLabel>
+          /> */}
+          <FormLabel component='legend'>Review</FormLabel>
           <TextField
-            name='summary'
+            name='review'
             variant='outlined'
             placeholder=''
             value={summary}
             onChange={e => setSummary(e.target.value)}
             sx={{ paddingBottom: 2 }}
           />
-          <Typography component='legend'>Review</Typography>
+          <Typography component='legend'>Rating</Typography>
           <Rating
-            name='review'
+            name='rating'
             value={review}
             onChange={e => setReview(e.target.value)}
             sx={{ paddingBottom: 2 }}

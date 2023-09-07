@@ -43,6 +43,9 @@ app.post('/login', userControllerSQL.userAuth, (req, res) => {
 app.post('/review', reviewControllerSQL.addReview, (req, res) => {
   res.status(200).json(res.locals.newReview);
 });
+// app.post('/review', reviewControllerSQL.addReview, reviewControllerSQL.getAllUserReviews, (req, res) => {
+//   res.status(200).json(res.locals.userReviews);
+// });
 app.delete('/review', reviewControllerSQL.deleteReview, (req, res) => {
   res.status(200).json(res.locals.deletedReview);
 });

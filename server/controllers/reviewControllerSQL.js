@@ -6,7 +6,8 @@ reviewControllerSQL.addReview = async (req, res, next) => {
     console.log('Entered addReview controller');
     try {
         const result = await dbActions.addReview(req.body); //
-        console.log(res.locals.newReview);
+        res.locals.newReview = result;
+        console.log("this is the new review:", res.locals.newReview);
         return next();
     }
     catch(err){
