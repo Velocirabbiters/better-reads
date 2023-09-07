@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import {
@@ -11,6 +11,8 @@ import {
   Rating,
   TextField,
   Typography,
+  MenuItem,
+  Select,
 } from '@mui/material';
 import { addBook } from '../features/librarySlice';
 
@@ -28,11 +30,36 @@ function AddBookForm() {
   const [genre, setGenre] = useState('');
   const [summary, setSummary] = useState('');
   const [review, setReview] = useState(0);
-
+  const [booksAndBookID, setBooksAndBookID] = useState([]);
+  const [titleSelectorVal, setTitleSelectorVal] = useState('');
   const username = useSelector(state => state.user.username);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    getDropDownData().then(data => setBooksAndBookID(data));
+  }, []);
+
+  const getDropDownData = async () => {
+    let data = await fetch('/books', {
+      Headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const tempBooksAndID = [];
+    data = await data.json();
+    console.log(data);
+    data.forEach(e => {
+      tempBooksAndID.push({
+        title: e.title,
+        id: e.id,
+      });
+    });
+    return tempBooksAndID;
+  };
+  const titleSelectorChangeHandle = e => {
+    setTitleSelectorVal(e.target.val);
+  };
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(
@@ -46,7 +73,15 @@ function AddBookForm() {
       }),
     );
   };
-
+  const options = [];
+  for (let i = 0; i < booksAndBookID.length; i++) {
+    options.push(
+      <MenuItem value={booksAndBookID[i].id}>
+        {booksAndBookID[i].title}
+      </MenuItem>,
+    );
+  }
+  console.log(booksAndBookID);
   return (
     <div className='addBookFrom'>
       <form onSubmit={handleSubmit}>
@@ -58,6 +93,14 @@ function AddBookForm() {
             borderColor: 'primary.main',
           }}>
           <FormLabel component='legend'>Title</FormLabel>
+          <Select
+            labelId='book title selector label'
+            id='book title selector'
+            value={titleSelectorVal}
+            label='Title'
+            onChange={titleSelectorChangeHandle}>
+            {options}
+          </Select>
           <TextField
             required
             name='title'
