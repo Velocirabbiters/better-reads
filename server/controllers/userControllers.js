@@ -3,8 +3,6 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/userModels');
 const Book = require('../models/bookModels');
 
-const db = require('../models/sqlModels');
-
 const userController = {};
 
 userController.createUser = async (req, res, next) => {

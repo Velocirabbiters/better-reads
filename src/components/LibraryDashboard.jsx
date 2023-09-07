@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { getBooks } from '../features/librarySlice';
+import { Button } from '@mui/material';
+import { openUpdateActionCreator } from '../features/userSlice';
 
 function LibraryDashboard() {
   const username = useSelector(state => state.user.username);
@@ -27,6 +29,13 @@ function LibraryDashboard() {
     review: book.review,
   }));
 
+  const openUpdate = () => {
+    dispatch(openUpdateActionCreator())
+  }
+
+  const update = <Button onClick={() => {openUpdate()}}>Update</Button>;
+  const del = <Button>Delete</Button>;
+
   const columns = [
     {
       field: 'id',
@@ -38,6 +47,8 @@ function LibraryDashboard() {
     { field: 'genre', headerName: 'Genre', width: 150 },
     { field: 'summary', headerName: 'Summary', width: 350 },
     { field: 'review', headerName: 'Review', width: 150 },
+    { field: 'update', headerName: '', width: 150, renderCell: () => {return update}},
+    { field: 'delete', headerName: '', width: 150, renderCell: () => {return del}}
   ];
 
   return (

@@ -3,15 +3,15 @@ import { BrowserRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
 import LoginPage from './LoginPage';
-import LibraryContainer from './LibraryContainer';
+import MainContainer from './MainContainer';
 
 export default function App() {
   const loggedIn = useSelector(state => state.user.loggedIn);
+  
   return (
     <div>
       <Typography
         sx={{
-          boxShadow: 2,
           border: 2,
           color: 'black',
           borderColor: 'black',
@@ -25,7 +25,7 @@ export default function App() {
         Better Reads
       </Typography>
       <BrowserRouter>
-        {loggedIn ? <LibraryContainer /> : <LoginPage />}
+        {loggedIn ? <MainContainer /> : <LoginPage />}
       </BrowserRouter>
     </div>
   );

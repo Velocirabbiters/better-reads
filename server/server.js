@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 
-
 // require controllers
 const { restart } = require('nodemon');
 const userController = require('./controllers/userControllers');
@@ -11,8 +10,6 @@ const bookController = require('./controllers/bookControllers');
 const userControllerSQL = require('./controllers/userControllerSQL');
 const bookControllerSQL = require('./controllers/bookControllerSQL');
 const reviewControllerSQL = require('./controllers/reviewControllerSQL');
-
-
 
 const app = express();
 const PORT = 3005;
@@ -28,31 +25,30 @@ app.post('/books', bookControllerSQL.addBook, (req, res) => {
 });
 app.get('/books', bookControllerSQL.getBook, (req, res) => {
   return res.status(200).json(res.locals.foundBook);
-})
+});
 app.patch('/books', bookControllerSQL.updateBook, (req, res) => {
   return res.status(200).json(res.locals.updatedBook);
-})
+});
 app.delete('/books', bookControllerSQL.deleteBook, (req, res) => {
   return res.status(200).json(res.locals.deletedBook);
-})
+});
 // USERS:
 app.post('/signup', userControllerSQL.createUser, (req, res) => {
-  res.status(200).json(res.locals.newUser)
+  res.status(200).json(res.locals.newUser);
 });
 app.post('/login', userControllerSQL.userAuth, (req, res) => {
-  res.status(200).json(res.locals.userID)
+  res.status(200).json(res.locals.userID);
 });
 // REVIEWS
 app.post('/review', reviewControllerSQL.addReview, (req, res) => {
-  res.status(200).json(res.locals.newReview)
-})
+  res.status(200).json(res.locals.newReview);
+});
 app.delete('/review', reviewControllerSQL.deleteReview, (req, res) => {
-  res.status(200).json(res.locals.deletedReview)
-})
+  res.status(200).json(res.locals.deletedReview);
+});
 app.get('/review', reviewControllerSQL.getReview, (req, res) => {
-  res.status(200).json(res.locals.foundReview)
-})
-
+  res.status(200).json(res.locals.foundReview);
+});
 
 // OLD MONGODB STUFF
 
