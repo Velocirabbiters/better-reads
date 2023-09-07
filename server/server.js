@@ -34,7 +34,7 @@ app.delete('/books', bookControllerSQL.deleteBook, (req, res) => {
 });
 // USERS:
 app.post('/signup', userControllerSQL.createUser, (req, res) => {
-  res.status(200).json({ user_id: res.locals.newUser });
+  res.status(200).json(res.locals.newUser);
 });
 app.post('/login', userControllerSQL.userAuth, (req, res) => {
   res.status(200).json({ user_id: res.locals.userID });
