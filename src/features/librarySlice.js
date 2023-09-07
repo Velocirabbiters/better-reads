@@ -10,10 +10,10 @@ const initialState = {
 
 export const getBooks = createAsyncThunk('library/getBooks', async user_id => {
   try {
-    console.log({ params: user_id })
+    console.log({ params: user_id });
     console.log('running get books again');
     const response = await axios.get('/library', { params: user_id });
-    console.log("the response is", response.data);
+    console.log('the response is', response.data);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -24,8 +24,8 @@ export const addBook = createAsyncThunk('library/addBook', async data => {
   console.log(data);
   try {
     const response = await axios.post('/review', data);
-    console.log("this is the data entering addBook: ", data);
-    console.log("this is the response we got from post to /review: ", response);
+    console.log('this is the data entering addBook: ', data);
+    console.log('this is the response we got from post to /review: ', response);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -82,7 +82,7 @@ const librarySlice = createSlice({
         console.log('added book erm i mean review');
         console.log('bookList currently: ', state.bookList);
         console.log('payload: ', action.payload);
-        state.bookList = action.payload;
+        state.bookList = [...state.bookList, action.payload];
       });
   },
 });
