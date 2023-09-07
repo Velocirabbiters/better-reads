@@ -26,7 +26,7 @@ dbActions.getBook = async bookInfo => {
       values.push(value);
     }
   }
-  query += 'ORDER BY author';
+  query += 'ORDER BY title';
   const result = await db.query(query, values);
   return result.rows;
 };
