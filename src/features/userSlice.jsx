@@ -79,7 +79,7 @@ const userSlice = createSlice({
       builder.addCase(signupUser.fulfilled, (state, action) => {
         if (action.payload) {
           state.username = action.payload.username;
-          state.userId = action.payload.id;
+          state.user_id = action.payload.user_id;
           state.loggedIn = true;
         } else {
           state.failedSignup = true;
