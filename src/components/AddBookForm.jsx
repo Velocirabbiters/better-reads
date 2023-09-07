@@ -52,14 +52,12 @@ function AddBookForm() {
     data.forEach(e => {
       tempBooksAndID.push({
         title: e.title,
-        id: e.id,
+        id: e.book_id,
       });
     });
     return tempBooksAndID;
   };
   const titleSelectorChangeHandle = e => {
-    console.log('e target val: ', e.target.value);
-    console.log('e.target: ', e.target);
     setTitleSelectorVal(e.target.value);
   };
   const handleSubmit = e => {
