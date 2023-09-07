@@ -3,8 +3,6 @@ const express = require('express');
 
 // require controllers
 const { restart } = require('nodemon');
-const userController = require('./controllers/userControllers');
-const bookController = require('./controllers/bookControllers');
 
 // SQL controllers
 const userControllerSQL = require('./controllers/userControllerSQL');
@@ -16,7 +14,6 @@ const PORT = 3005;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-console.log(path.resolve(__dirname, '../dist'));
 app.use(express.static(path.resolve(__dirname, '../dist')));
 
 // SQL ROUTES:
@@ -57,33 +54,6 @@ app.get('/library', reviewControllerSQL.getAllUserReviews, (req, res) => {
   // this should be a get request, but prev group did post
   res.status(200).json(res.locals.userReviews);
 });
-
-// OLD MONGODB STUFF
-
-// login
-app.post(
-  '/login',
-  userController.verifyUser,
-  (req, res) => res.status(200).json(res.locals),
-  //   res.redirect('/dashboard'),
-);
-
-// app.get('/dashboard', (req, res) =>
-//     res.sendFile()
-// );
-
-// app.post('/library', bookController.getBooks, (req, res) =>
-//   res.status(200).json(res.locals.library),
-// );
-
-// add book to dashboard
-app.post(
-  '/dashboard',
-  bookController.addBook,
-  userController.findUser,
-  userController.addBook,
-  (req, res) => res.status(200).json(res.locals.newLibrary),
-);
 
 // catch all
 app.use('*', (req, res) => {

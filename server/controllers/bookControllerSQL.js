@@ -7,7 +7,6 @@ bookControllerSQL.addBook = async (req, res, next) => {
   try {
     const result = await dbActions.addBook(req.body); // should grab title, author, genre
     res.locals.newBook = result;
-    console.log(res.locals.newBook);
     return next();
   } catch (err) {
     console.log('err: ', err);
@@ -20,7 +19,6 @@ bookControllerSQL.updateBook = async (req, res, next) => {
   try {
     const result = await dbActions.updateBook(req.body); // should grab book_id, title, author, genre
     res.locals.updatedBook = result;
-    console.log('updated book: ', res.locals.updatedBook);
     return next();
   } catch (err) {
     console.log('err: ', err);
@@ -33,7 +31,6 @@ bookControllerSQL.getBook = async (req, res, next) => {
   try {
     const result = await dbActions.getBook(req.query); // should grab title, author, book_id, genre
     res.locals.foundBook = result;
-    console.log('found book: ', res.locals.foundBook);
     return next();
   } catch (err) {
     console.log('err: ', err);
@@ -46,7 +43,6 @@ bookControllerSQL.deleteBook = async (req, res, next) => {
   try {
     const result = await dbActions.deleteBook(req.body); // should grab book_id
     res.locals.deletedBook = result;
-    console.log('deleted book: ', res.locals.deletedBook);
     return next();
   } catch (err) {
     console.log('err: ', err);
