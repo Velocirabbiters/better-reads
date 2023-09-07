@@ -132,6 +132,18 @@ dbActions.getReview = async reviewInfo => {
   return result.rows;
 };
 
+dbActions.getAllUserReviews = async userInfo => {
+  const { user_id } = userInfo;
+  const values = [user_id];
+  console.log('values:', values);
+  let query = `SELECT r.*, b.title, b.author, b.genre FROM reviews r
+  LEFT OUTER JOIN books b ON r.book_id = b.book_id WHERE r.user_id = $1;`
+  const result = await db.query(query, values);
+  return result.rows;
+}
+
+
+
 //STRETCH:
 //add follower
 //get review

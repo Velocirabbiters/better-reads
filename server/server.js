@@ -49,6 +49,9 @@ app.delete('/review', reviewControllerSQL.deleteReview, (req, res) => {
 app.get('/review', reviewControllerSQL.getReview, (req, res) => {
   res.status(200).json(res.locals.foundReview);
 });
+app.post('/library',(req, res, next)=>{ console.log('got to post /library'); return next();}, reviewControllerSQL.getAllUserReviews, (req, res) => { // this should be a get request, but prev group did post
+  res.status(200).json(res.locals.userReviews);
+})
 
 // OLD MONGODB STUFF
 
@@ -64,9 +67,9 @@ app.post(
 //     res.sendFile()
 // );
 
-app.post('/library', bookController.getBooks, (req, res) =>
-  res.status(200).json(res.locals.library),
-);
+// app.post('/library', bookController.getBooks, (req, res) =>
+//   res.status(200).json(res.locals.library),
+// );
 
 // add book to dashboard
 app.post(
