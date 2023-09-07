@@ -58,7 +58,9 @@ function AddBookForm() {
     return tempBooksAndID;
   };
   const titleSelectorChangeHandle = e => {
-    setTitleSelectorVal(e.target.val);
+    console.log('e target val: ', e.target.value);
+    console.log('e.target: ', e.target);
+    setTitleSelectorVal(e.target.value);
   };
   const handleSubmit = e => {
     e.preventDefault();
