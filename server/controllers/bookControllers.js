@@ -2,8 +2,6 @@ const path = require('path');
 const Book = require('../models/bookModels');
 const User = require('../models/userModels');
 
-const db = require('../models/sqlModels');
-
 const bookController = {};
 
 // bookController.console = (req, res, next) => {
