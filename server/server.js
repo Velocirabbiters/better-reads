@@ -34,10 +34,10 @@ app.delete('/books', bookControllerSQL.deleteBook, (req, res) => {
 });
 // USERS:
 app.post('/signup', userControllerSQL.createUser, (req, res) => {
-  res.status(200).json(res.locals.newUser);
+  res.status(200).json({ used_id: res.locals.newUser });
 });
 app.post('/login', userControllerSQL.userAuth, (req, res) => {
-  res.status(200).json(res.locals.userID);
+  res.status(200).json({ user_id: res.locals.userID });
 });
 // REVIEWS
 app.post('/review', reviewControllerSQL.addReview, (req, res) => {
@@ -49,9 +49,18 @@ app.delete('/review', reviewControllerSQL.deleteReview, (req, res) => {
 app.get('/review', reviewControllerSQL.getReview, (req, res) => {
   res.status(200).json(res.locals.foundReview);
 });
-app.post('/library',(req, res, next)=>{ console.log('got to post /library'); return next();}, reviewControllerSQL.getAllUserReviews, (req, res) => { // this should be a get request, but prev group did post
-  res.status(200).json(res.locals.userReviews);
-})
+app.post(
+  '/library',
+  (req, res, next) => {
+    console.log('got to post /library');
+    return next();
+  },
+  reviewControllerSQL.getAllUserReviews,
+  (req, res) => {
+    // this should be a get request, but prev group did post
+    res.status(200).json(res.locals.userReviews);
+  },
+);
 
 // OLD MONGODB STUFF
 

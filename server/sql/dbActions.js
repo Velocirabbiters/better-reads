@@ -2,7 +2,6 @@ const db = require('./connect');
 const bcrypt = require('bcryptjs');
 dbActions = {};
 
-
 // BOOK DB ACTIONS
 
 dbActions.addBook = async bookInfo => {
@@ -80,7 +79,6 @@ dbActions.verifyUser = async accountInfo => {
   if (isValid) {
     console.log('Username/password match!');
     return userID;
-
   } else {
     console.log('Username/password incorrect!');
     return; // returns nothing if password not correct
@@ -137,12 +135,10 @@ dbActions.getAllUserReviews = async userInfo => {
   const values = [user_id];
   console.log('values:', values);
   let query = `SELECT r.*, b.title, b.author, b.genre FROM reviews r
-  LEFT OUTER JOIN books b ON r.book_id = b.book_id WHERE r.user_id = $1;`
+  LEFT OUTER JOIN books b ON r.book_id = b.book_id WHERE r.user_id = $1;`;
   const result = await db.query(query, values);
   return result.rows;
-}
-
-
+};
 
 //STRETCH:
 //add follower

@@ -7,13 +7,13 @@ import { Button } from '@mui/material';
 import { openUpdateActionCreator } from '../features/userSlice';
 
 function LibraryDashboard() {
-  const username = useSelector(state => state.user.username);
+  const user_id = useSelector(state => state.user.user_id);
   // const bookCount = useSelector(state => state.library.bookCount);
   const bookData = useSelector(state => state.library.bookList);
   const dispatch = useDispatch();
 
   const body = {
-    username: username,
+    user_id: user_id,
   };
 
   useEffect(() => {
@@ -30,10 +30,17 @@ function LibraryDashboard() {
   }));
 
   const openUpdate = () => {
-    dispatch(openUpdateActionCreator())
-  }
+    dispatch(openUpdateActionCreator());
+  };
 
-  const update = <Button onClick={() => {openUpdate()}}>Update</Button>;
+  const update = (
+    <Button
+      onClick={() => {
+        openUpdate();
+      }}>
+      Update
+    </Button>
+  );
   const del = <Button>Delete</Button>;
 
   const columns = [
@@ -47,8 +54,22 @@ function LibraryDashboard() {
     { field: 'genre', headerName: 'Genre', width: 150 },
     { field: 'summary', headerName: 'Summary', width: 350 },
     { field: 'review', headerName: 'Review', width: 150 },
-    { field: 'update', headerName: '', width: 150, renderCell: () => {return update}},
-    { field: 'delete', headerName: '', width: 150, renderCell: () => {return del}}
+    {
+      field: 'update',
+      headerName: '',
+      width: 150,
+      renderCell: () => {
+        return update;
+      },
+    },
+    {
+      field: 'delete',
+      headerName: '',
+      width: 150,
+      renderCell: () => {
+        return del;
+      },
+    },
   ];
 
   return (
