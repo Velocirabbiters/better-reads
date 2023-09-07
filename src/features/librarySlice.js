@@ -10,7 +10,9 @@ const initialState = {
 
 export const getBooks = createAsyncThunk('library/getBooks', async user_id => {
   try {
-    const response = await axios.post('/library', user_id);
+    console.log({ params: user_id })
+    const response = await axios.get('/library', { params: user_id });
+    console.log("the response is", response.data);
     return response.data;
   } catch (err) {
     console.log(err);

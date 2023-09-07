@@ -46,7 +46,7 @@ reviewControllerSQL.deleteReview = async (req, res, next) => {
 reviewControllerSQL.getAllUserReviews = async (req, res, next) => {
     console.log('Entered getAllUserReviews controller');
     try {
-        const result = await dbActions.getAllUserReviews(req.body); // should grab user_id ---> do req.query for GET instead
+        const result = await dbActions.getAllUserReviews(req.query); // should grab user_id ---> do req.query for GET instead
         res.locals.userReviews = result;
         console.log('user reviews: ', res.locals.userReviews);
         return next();

@@ -131,6 +131,7 @@ dbActions.getReview = async reviewInfo => {
 };
 
 dbActions.getAllUserReviews = async userInfo => {
+  console.log('user info: ', userInfo);
   const { user_id } = userInfo;
   const values = [user_id];
   console.log('values:', values);
