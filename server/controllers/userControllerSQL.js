@@ -14,7 +14,7 @@ userControllerSQL.createUser = async (req, res, next) => {
         return next();
     }
     catch(err){
-        error = 'error found at userControllerSQL createUser middleware'
+        const error = 'error found at userControllerSQL createUser middleware'
         console.log('err: ', error);
         return next(err);
     }
@@ -38,7 +38,7 @@ userControllerSQL.userAuth = async (req, res, next) => {
         return next();
     }
     catch(err){
-        error = 'error found at userControllerSQL createUser middleware'
+        const error = 'error found at userControllerSQL createUser middleware'
         console.log('err: ', error);
         return next(err);
     }
