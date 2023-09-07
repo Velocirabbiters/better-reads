@@ -8,14 +8,14 @@ userControllerSQL.createUser = async (req, res, next) => {
     const { username, password } = req.body;
     console.log({ username, password })
     try {
-        const result = await dbActions.createUser(username, password);
+        const result = await dbActions.createUser({username, password});
         res.locals.newUser = result;
         console.log(res.locals.newUser);
         return next();
     }
     catch(err){
-        err = 'error found at userControllerSQL createUser middleware'
-        console.log('err: ', err);
+        error = 'error found at userControllerSQL createUser middleware'
+        console.log('err: ', error);
         return next(err);
     }
 }
@@ -24,7 +24,7 @@ userControllerSQL.userAuth = async (req, res, next) => {
     console.log('undergoing user authentication');
     const { username, password } = req.body;
     try {
-        const result = await dbActions.verifyUser(username, password);
+        const result = await dbActions.verifyUser({username, password});
         if (!result){ // username not found or password invalid
             const err = ({
                 log: 'Username/password not found',
@@ -38,8 +38,8 @@ userControllerSQL.userAuth = async (req, res, next) => {
         return next();
     }
     catch(err){
-        err = 'error found at userControllerSQL createUser middleware'
-        console.log('err: ', err);
+        error = 'error found at userControllerSQL createUser middleware'
+        console.log('err: ', error);
         return next(err);
     }
 }
