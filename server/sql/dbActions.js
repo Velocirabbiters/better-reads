@@ -18,10 +18,10 @@ dbActions.addBook = async bookInfo => {
 // need to destructure to avoid things like bookInfo = {";drop table users;--":"getpwned"}
 dbActions.getBook = async bookInfo => {
   const { title, author, book_id, genre } = bookInfo;
-  const findBook = { title, author, book_id, genre };
+  const bookToFind = { title, author, book_id, genre };
   let query = `SELECT * FROM books WHERE 1 = 1`;
   let values = [];
-  for (const [key, value] of Object.entries(findBook)) {
+  for (const [key, value] of Object.entries(bookToFind)) {
     if (value !== undefined) {
       query += ` and ${key} = $${values.length + 1}`;
       values.push(value);
@@ -101,9 +101,35 @@ dbActions.addReview = async reviewInfo => {
   // if user_id, book_id don't match any user/book primary keys, will throw error?
   const query = `INSERT INTO reviews (user_id, book_id, rating, review)
     VALUES ($1, $2, $3, $4)
-    RETURNING user_id, book_id, rating, review;`;
+    RETURNING review_id, user_id, book_id, rating, review;`;
   const result = await db.query(query, values);
   return result.rows[0];
+};
+
+dbActions.deleteReview = async review => {
+  const { review_id } = review;
+  const values = [review_id];
+  // if user_id, book_id don't match any user/book primary keys, will throw error?
+  const query = `DELETE FROM reviews WHERE book_id = $1;`;
+  const result = await db.query(query, values);
+  return result.rows[0];
+};
+
+dbActions.getReview = async reviewInfo => {
+  // destructuring and restructuring to avoid SQL injection keys
+  const { review_id, user_id, book_id, rating, review } = reviewInfo;
+  const reviewToFind = { review_id, user_id, book_id, rating, review };
+
+  let query = `SELECT * FROM reviews WHERE 1 = 1`;
+  let values = [];
+  for (const [key, value] of Object.entries(reviewToFind)) {
+    if (value !== undefined) {
+      query += ` and ${key} = $${values.length + 1}`;
+      values.push(value);
+    }
+  }
+  const result = await db.query(query, values);
+  return result.rows;
 };
 
 //STRETCH:
