@@ -15,6 +15,20 @@ reviewControllerSQL.addReview = async (req, res, next) => {
   }
 };
 
+reviewControllerSQL.fleshOutReview = async (req, res, next) => {
+    console.log('Entered addReview controller');
+    try {
+        const result = await dbActions.fleshOutReview(res.locals.newReview); //
+        res.locals.fleshedOutReview = result;
+        console.log("this is the fleshedOutReview review:", res.locals.fleshedOutReview);
+        return next();
+    }
+    catch(err){
+        console.log('err: ', err);
+        return next(err);
+    }
+}
+
 reviewControllerSQL.getReview = async (req, res, next) => {
   console.log('Entered getReview controller');
   try {
