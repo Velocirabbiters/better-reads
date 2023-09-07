@@ -52,13 +52,13 @@ function AddBookForm() {
     data.forEach(e => {
       tempBooksAndID.push({
         title: e.title,
-        id: e.id,
+        id: e.book_id,
       });
     });
     return tempBooksAndID;
   };
   const titleSelectorChangeHandle = e => {
-    setTitleSelectorVal(e.target.val);
+    setTitleSelectorVal(e.target.value);
   };
   const handleSubmit = e => {
     e.preventDefault();
