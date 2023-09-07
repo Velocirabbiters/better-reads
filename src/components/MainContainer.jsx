@@ -12,13 +12,8 @@ function MainContainer() {
 
   let page = <LibraryContainer />;
 
-  if(selected === 'social'){
-    page = <SocialContainer />;
-  }
-
   return (
     <div>
-      <Navigator/>
       {page}
     </div>
   );

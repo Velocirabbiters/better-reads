@@ -31,15 +31,8 @@ function LibraryDashboard() {
     review: review.rating,
   }));
 
-  const openUpdate = () => {
-    dispatch(openUpdateActionCreator());
-  };
-
   const update = (
-    <Button
-      onClick={() => {
-        openUpdate();
-      }}>
+    <Button>
       Update
     </Button>
   );
@@ -51,11 +44,11 @@ function LibraryDashboard() {
       headerName: 'ID',
       width: 150,
     },
-    { field: 'title', headerName: 'Title', width: 350 },
+    { field: 'book', headerName: 'Book', width: 350 },
     { field: 'author', headerName: 'Author', width: 150 },
     { field: 'genre', headerName: 'Genre', width: 150 },
-    { field: 'summary', headerName: 'Summary', width: 350 },
-    { field: 'review', headerName: 'Review', width: 150 },
+    { field: 'review', headerName: 'Review', width: 350 },
+    { field: 'rating', headerName: 'Rating', width: 150 },
     {
       field: 'update',
       headerName: '',
