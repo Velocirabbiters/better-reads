@@ -26,6 +26,7 @@ dbActions.getBook = async bookInfo => {
       values.push(value);
     }
   }
+  query += 'ORDER BY author';
   const result = await db.query(query, values);
   return result.rows;
 };
@@ -109,13 +110,13 @@ dbActions.addReview = async reviewInfo => {
 
 dbActions.fleshOutReview = async newReview => {
   const { review_id } = newReview;
-  console.log("review_id: ", review_id);
+  console.log('review_id: ', review_id);
   const values = [review_id];
   const query = `SELECT r.*, b.title, b.author, b.genre FROM reviews r
   LEFT OUTER JOIN books b ON r.book_id = b.book_id WHERE r.review_id = $1;`;
   const result = await db.query(query, values);
   return result.rows[0];
-}
+};
 
 dbActions.deleteReview = async review => {
   const { review_id } = review;
