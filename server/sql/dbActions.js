@@ -64,6 +64,9 @@ dbActions.createUser = async accountInfo => {
 
 dbActions.verifyUser = async accountInfo => {
   const { username, password } = accountInfo;
+  if (password === undefined) {
+    return;
+  }
   const values = [username];
   const query = `SELECT user_id, password FROM users
     WHERE username = $1`;
@@ -74,7 +77,7 @@ dbActions.verifyUser = async accountInfo => {
   }
   const userID = result.rows[0].user_id;
   const dbPassword = result.rows[0].password;
-  const isValid = await bcrypt.compare(password, dbPassword);
+  const isValid = await bcrypt.compare('' + password, dbPassword);
 
   if (isValid) {
     console.log('Username/password match!');
@@ -108,7 +111,7 @@ dbActions.deleteReview = async review => {
   const { review_id } = review;
   const values = [review_id];
   // if user_id, book_id don't match any user/book primary keys, will throw error?
-  const query = `DELETE FROM reviews WHERE book_id = $1;`;
+  const query = `DELETE FROM reviews WHERE review_id = $1;`;
   const result = await db.query(query, values);
   return result.rows[0];
 };
