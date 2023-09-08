@@ -6,7 +6,6 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
   },
   mode: 'development',
   module: {
@@ -63,6 +62,8 @@ module.exports = {
       '/signup': 'http://localhost:3005', // path and port here
       '/dashboard': 'http://localhost:3005', // path and port here
       '/library': 'http://localhost:3005', // path and port here
+      '/books': 'http://localhost:3005',
+      '/review': 'http://localhost:3005',
     },
   },
 };
